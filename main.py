@@ -3322,3 +3322,4 @@ import time as t
 # Classwork 22
 
 print("Hello world")
+print("Новые изменения")
