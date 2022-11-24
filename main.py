@@ -3354,6 +3354,6 @@ import time as t
 # print(re.findall(reg, s))
 # print(re.sub(reg, r'\2.\1.\3', s))
 
-s = "google.com and google.ru and yandex.ru"
-reg = r'(([a-z0-9-]{2,}\.)+[a-z]{2,4})'
-print(re.sub(reg, r"http://\1", s))
+# s = "google.com and google.ru and yandex.ru"
+# reg = r'(([a-z0-9-]{2,}\.)+[a-z]{2,4})'
+# print(re.sub(reg, r"http://\1", s))
