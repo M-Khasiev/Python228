@@ -1102,6 +1102,7 @@ from random import *
 
 import time as t
 
+
 # second = t.time()
 # print("Секунды с начала цифровой эпохи:", second)
 # localtime = t.ctime()
@@ -3447,13 +3448,22 @@ import time as t
 # print("Выпрямленный список:", union(names))
 
 
-def remove(text):
-    if not text:
-        return ""
-    if text[0] == "\t" or text[0] == " ":
-        return remove(text[1:])
-    else:
-        return text[0] + remove(text[1:])
+# def remove(text):
+#     if not text:
+#         return ""
+#     if text[0] == "\t" or text[0] == " ":
+#         return remove(text[1:])
+#     else:
+#         return text[0] + remove(text[1:])
+#
+#
+# print(remove("   Hello\tWorld   "))
 
 
-print(remove("   Hello\tWorld   "))
+def factorial_recursive(n):
+    if n == 1:
+        return
+    factorial_recursive(n - 1)
+    print(n)
+
+print(factorial_recursive(7))
