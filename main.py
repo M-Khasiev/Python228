@@ -3460,10 +3460,11 @@ import time as t
 # print(remove("   Hello\tWorld   "))
 
 
-def factorial_recursive(n):
-    if n == 1:
-        return
-    factorial_recursive(n - 1)
-    print(n)
+# def factorial_recursive(n):
+#     if n == 1:
+#         return
+#     factorial_recursive(n - 1)
+#     print(n)
+#
+# print(factorial_recursive(7))
 
-print(factorial_recursive(7))
