@@ -3590,3 +3590,286 @@ import time as t
 # f = open('text4.txt', 'wb')
 # print(f.write(b"\nI am learning Python\n"))
 # f.close()
+
+
+# Classwork 25
+
+# with open('text.txt', 'w+') as f:
+#     print(f.write('0123456789'))
+
+# with open('text.txt', 'r') as f:
+#     for line in f:
+#         print(line[:6])
+
+# file_name = 'res.txt'
+# lst = [4.5, 2.8, 3.9, 1.0, 0.3, 4.33, 7.777]
+#
+#
+# def get_line(lt):
+#     lt = list(map(str, lt))
+#     return ' '.join(lt)
+#
+#
+# with open(file_name, 'w') as f:
+#     f.write(get_line(lst))
+
+# with open(file_name, 'r') as f:
+#     nums = f.read()
+#
+# print(nums)
+#
+# lst = list(map(float, nums.split(' ')))
+# print(lst)
+# print(len(lst))
+# print(sum(lst))
+
+
+# file_name = 'res.txt'
+#
+#
+# def longest_words(file):
+#     with open(file, 'r', encoding='utf-8') as text:
+#         w = text.read().split()
+#         max_length = len(max(w, key=len))
+#         res = [word for word in w if len(word) == max_length]
+#         if len(res) == 1:
+#             return res[0]
+#         return res
+#
+#
+# print(longest_words(file_name))
+
+
+# text = 'Строка №1\nСтрока №2\nСтрока №3\nСтрока №4\nСтрока №5\nСтрока №6\nСтрока №7\nСтрока №8\nСтрока №9\nСтрока'
+#        '№10\n'
+#
+# with open("one.txt", "w") as f:
+#     f.write(text)
+
+# read_file = 'one.txt'
+# write_file = 'two.txt'
+# with open(read_file, 'r') as fr, open(write_file, 'w') as fw:
+#     for line in fr:
+#         line = line.replace("Строка", "Линия - ")
+#         fw.write(line)
+
+
+#  Модуль OS и OS.PATH
+
+# import os
+
+# print("Текущая директория: ", os.getcwd()) # C:\Python228
+#
+# print(os.listdir(".."))  # возвращает список директорий и файлов, находящихся в текущей директорий
+
+# os.mkdir("folder")  # создает директорию по указанному пути
+
+# os.makedirs("nested1/nested2/nested3")  # создает промежуточные директории и конечную, указанные в пути, если они не
+# существует. Если конечная директория уже существует, то будет сгенерирована ошибка FileExistsError
+
+# os.remove("text.txt")
+
+# os.rename('nested1', 'test')  # переименовывает файл или директорию
+# os.rename('res.txt', 'test/ress.txt')  # переименовывает файл или директорию, перемещает файлы в существующие
+# директории (переместил файл)
+# os.renames('text'.txt', 'test1/test1.txt') # переименовывает файл или директорию, создавая промежуточные директории (
+# # переместил файл)
+
+# os.rdmir("test1") # удаляет пустую директорию
+
+# for root, dirs, files in os.walk('test'):  # Возвращает имена обьектов в виде дерева директорий. Для
+#     # каждой директории возвращает кортеж (root - путь к директории, dirs - список директории, files - список файлов
+#     print("Root:", root)
+#     print("     Subdirs:", dirs)
+#     print("         Files:", files)
+
+# def remove_empty_dirs(root_true):
+#     for root, dirs, files in os.walk(root_true):
+#        if not os.listdir(root):
+#            os.rmdir(root)
+#            print(f"Директория {root} удалена.")
+#
+#
+# remove_empty_dirs('test')
+
+
+# OS PATH
+
+# print(os.path.split(r'C:\Python228\test\nested1\nested2\nested3\giug.txt'))  # разбивает путь на кортеж (head, tail)
+# # tail - последний компонент пути, head - все остальное
+#
+# print(os.path.dirname(r'C:\Python228\test\nested1\nested2\nested3\giug.txt'))  # возвращает имя директории ( + путь)
+# print(os.path.basename(r'C:\Python228\test\nested1\nested2\nested3\giug.txt'))  # возвращает имя файла
+
+# print(os.path.join('D:\pythonProject1', 'files', 'dir', 'three.txt'))
+
+
+# dirs = ["Work/F1", "Work/F2/F21"]
+#
+# for d in dirs:
+#     os.makedirs(d)
+#
+# files = {"Work": ['w.txt'],
+#          "Work/F1": ['f11.txt', 'f12.txt', 'f13.txt'],
+#          "Work/F2/F21": ['f211.txt', 'f212.txt']
+#          }
+# for d, file in files.items():
+#     for f in file:
+#         file_path = os.path.join(d, f)
+#         open(file_path, 'w').close()
+
+
+# file_text = ['Work/w.txt', 'Work/F1/f12.txt', 'Work/F2/F21/f211.txt', 'Work/F2/F21/f212.txt']
+# for file in file_text:
+#     with open(file, 'w') as f:
+#         f.write(f"Текст для файла по пути {file}.")
+
+
+# Classwork 26
+# import os
+# import time
+
+
+# print(os.path.exists(r'C:\Python228\one.txt'))  # проверяет наличие файла или папки по указанному пути
+# print(os.path.exists(r'C:\Python228\five.txt'))  # проверяет наличие файла или папки по указанному пути
+# path = 'two.txt'
+# print(os.path.getatime(path))  # возвращает время последнего доступа к файлу в секундах
+# print(os.path.getctime(path))  # возвращает время создания файла
+# print(os.path.getmtime(path))  # возвращает время последнего изменения файла
+# print(os.path.getsize(path))  # размер файла в байтах
+
+# size = round(os.path.getsize(path) / 1024, 2)
+# print(size)
+# a = os.path.getctime(path)
+# print(time.strftime("%d.%m.%Y, %H:%M:%S", time.localtime(a)))
+
+# print(os.path.isfile(r'one.txt'))  # возвращает True, если путь является файлом
+# print(os.path.isdir(r'Work'))  # возвращает True, если путь является директорий
+
+
+# class Point:
+#     """Класс для представления координат точек на плоскости"""
+#     x = 1
+#     y = 1
+
+
+# print(Point.__doc__)
+# print(Point.__name__)
+# print(dir(Point))
+
+# p1 = Point()
+# p2 = Point()
+# print("p1 =", p1.x)
+# print("Point =", Point.x)
+# # print(type(p1))
+# p1.x = 100
+# p2.x = 200
+# print("p1 =", p1.x)
+# print("p2 =", p2.x)
+# print("Point =", Point.x)
+# print(id(p1))
+# print(id(p2))
+# print(id(Point))
+# Point.y = 300
+# print("p1 =", p1.y)
+# print("p2 =", p2.y)
+# print("Point =", Point.y)
+
+
+# class Point:
+#     x = 1
+#     y = 1
+#
+#
+# p1 = Point()
+# p1.x = 5
+# p1.y = 10
+# p1.z = 20
+# print(p1.x, p1.y)
+# print(p1.__dict__)
+# print(Point.__dict__)
+
+
+# class Point:
+#     x = 1
+#     y = 1
+#
+#     def set_coord(self):
+#         print(self.__dict__)
+#         # print("Метод set_coord")
+#
+#
+# p1 = Point()
+# print(p1.x)
+# p1.x = 5
+# p1.y = 10
+# p1.set_coord()
+# p2 = Point()
+# p2.x = 2
+# p2.y = 7
+# p2.set_coord()
+
+
+# class Point:
+#     x = 1
+#     y = 1
+#
+#     def set_coord(self, x, y):
+#         self.x = x
+#         self.y = y
+#
+#
+# p1 = Point()
+# p1.set_coord(5, 10)
+# print(p1.__dict__)
+# p2 = Point()
+# p2.set_coord(2, 7)
+# print(p2.__dict__)
+
+
+# class Human:
+#     name = 'name'
+#     birthday = '00.00.0000'
+#     phone = '00-00-00'
+#     country = 'country'
+#     city = 'city'
+#     address = 'street, house'
+#
+#     def print_info(self):
+#         print(" Персональные данные ".center(40, "*"))
+#         print(f"Имя: {self.name}\nДата рождения: {self.birthday}\nНомер телефона: {self.phone}\n"
+#               f"Страна: {self.country}\nГород: {self.city}\nДомашний адрес: {self.address}")
+#         print("=" * 40)
+#
+#     def input_info(self, first_name, birthday, phone, country, city, address):
+#         self.name = first_name
+#         self.birthday = birthday
+#         self.country = country
+#         self.phone = phone
+#         self.city = city
+#         self.address = address
+#
+#     def set_name(self, name):  # установить имя
+#         if isinstance(name, str):
+#             self.name = name
+#
+#     def get_name(self):  # получить имя
+#         return self.name
+#
+#     def set_birthday(self, bth):
+#         self.birthday = bth
+#
+#     def get_birthday(self):
+#         return self.birthday
+#
+#
+# h1 = Human()
+# h1.print_info()
+# h1.input_info("Юля", '23.05.1986', '45-46-98', 'Россия', 'Москва', 'Чистопрудный бульвар, 1A')
+# h1.print_info()
+# h1.set_name("Алевтина")
+# h1.print_info()
+# print(h1.get_name())
+# h1.set_birthday("23.01.1987")
+# print(h1.get_birthday())
+# h1.print_info()
