@@ -21,6 +21,7 @@ with open(r'C:\Python228\three.txt', 'r') as f3:
 
 
 # Задача № 2
+
 def func_wlk(f, tpd):
     if tpd:
         print(f'Обход {f} сверху вниз')
