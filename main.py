@@ -1102,7 +1102,6 @@ from random import *
 
 import time as t
 
-
 # second = t.time()
 # print("Секунды с начала цифровой эпохи:", second)
 # localtime = t.ctime()
@@ -3982,6 +3981,8 @@ import time as t
 
 
 # class Point:
+#     __slots__ = ["__x", "__y", "z"]
+#
 #     def __init__(self, x, y):
 #         self.__x = self.__y = 0
 #         if Point.__check_value(x) and Point.__check_value(y):
@@ -4023,6 +4024,9 @@ import time as t
 #
 #
 # p1 = Point(5, 10)
+# p1.z = 15
+# print(p1.z)
+# print(p1.__dict__)
 # p1._Point__x = 111
 # print(p1.get_coord())
 # p1.set_coord(1, 2.3)
@@ -4037,3 +4041,352 @@ import time as t
 # print(p1.x, p1.y)
 # print(p1.__dict__)
 # print(p1.__dict__)
+
+
+# Classwork 28
+
+# class Point:
+#     def __init__(self, x=0, y=0):
+#         self.__x = x
+#         self.__y = y
+#
+#     def __set_x(self, x):  # устанавливаем
+#         print("Вызов __set_x")
+#         self.__x = x
+#
+#     def __get_x(self):  # получаем
+#         print("Вызов __get_x")
+#         return self.__x
+#
+#     def __del_x(self):
+#         print("Удаление свойства")
+#         del self.__x
+#
+#     x = property(__get_x, __set_x, __del_x)
+#
+#
+# p1 = Point(5, 10)
+# p1.x = 100
+# print(p1.x)
+# del p1.x
+
+
+# class Point:
+#     def __init__(self, x=0, y=0):
+#         self.__x = x
+#         self.__y = y
+#
+#     @property
+#     def x(self):  # получаем __get_x
+#         print("Вызов __get_x")
+#         return self.__x
+#
+#     @x.setter
+#     def x(self, x):  # устанавливаем __set_x
+#         print("Вызов __set_x")
+#         self.__x = x
+#
+#     @x.deleter
+#     def x(self):  # __del_x
+#         print("Удаление свойства")
+#         del self.__x
+#
+#     # x = property(__get_x, __set_x, __del_x)
+#
+#
+# p1 = Point(5, 10)
+# p1.x = 100
+# print(p1.x)
+# del p1.x
+
+# class KgToPounds:
+#     def __init__(self, kg):
+#         self.__kg = kg
+#
+#     @property
+#     def kg(self):
+#         return self.__kg
+#
+#     @kg.setter
+#     def kg(self, new_kg):
+#         if isinstance(new_kg, (int, float)):
+#             self.__kg = new_kg
+#         else:
+#             print('Килограммы задаются только числами!')
+#
+#     def to_pounds(self):
+#         return self.__kg * 2.205
+#
+#
+# weight = KgToPounds(12)
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+# weight.kg = 41
+# print(weight.kg, "кг =>", end=" ")
+# print(weight.to_pounds(), "фунтов")
+
+
+# class Person:
+#     def __init__(self, name, skill):
+#         self.__name = name
+#         self.__skill = skill
+#
+#     @property
+#     def name(self):
+#         return self.__name
+#
+#     @name.setter
+#     def name(self, n):
+#         self.__name = n
+#
+#     @name.deleter
+#     def name(self):
+#         del self.__name
+#
+#     @property
+#     def skill(self):
+#         return self.__skill
+#
+#     @skill.setter
+#     def skill(self, s):
+#         self.__skill = s
+#
+#     @skill.deleter
+#     def skill(self):
+#         del self.__skill
+#
+#
+# p1 = Person("Viktor", 12)
+# print(p1.name, p1.skill)
+# p1.name = "Ann"
+# p1.skill = 20
+# print(p1.name, p1.skill)
+# del p1.name
+# del p1.skill
+# print(p1.name, p1.skill)
+
+
+# class Point:
+#     __count = 0
+#
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
+#         Point.__count += 1
+#
+#     @staticmethod
+#     def get_count():
+#         return Point.__count
+#
+#
+# p1 = Point(5, 10)
+# p2 = Point(4, 8)
+# p3 = Point(2, 7)
+# print(Point.get_count())
+# print(p1.get_count())
+
+# class Change:
+#     @staticmethod
+#     def inc(x):
+#         return x + 1
+#
+#     @staticmethod
+#     def dec(x):
+#         return x - 1
+#
+#
+# c1 = Change()
+# print(Change.inc(10), Change.dec(10))
+# print(c1.inc(10), c1.dec(10))
+
+
+# class Args:
+#     @staticmethod
+#     def max(*args):
+#         res = 0
+#         for i in args:
+#             if i > res:
+#                 res = i
+#         return res
+#
+#     @staticmethod
+#     def min(a, b, c, d):
+#         return min(a, b, c, d)
+#
+#     @staticmethod
+#     def arf(a, b, c, d):
+#         return (a + b + c + d) // 4
+#
+#     @staticmethod
+#     def factorial(x):  # 5! = 1 * 2 * 3 * 4 * 5 = 120
+#         first = 1
+#         for i in range(1, x + 1):
+#             first *= i
+#         return first
+#
+#
+# print(Args.max(3, 5, 7, 9))
+# print(Args.min(3, 5, 7, 9))
+# print(Args.arf(3, 5, 7, 9))
+# print(Args.factorial(5))
+
+
+# class Data:
+#     def __init__(self, day=0, month=0, year=0):
+#         self.day = day
+#         self.month = month
+#         self.year = year
+#
+#     @classmethod
+#     def from_string(cls, date_as_string):
+#         day, month, year = map(int, date_as_string.split('.'))
+#         date1 = cls(day, month, year)
+#         return date1
+#
+#     def string_to_db(self):
+#         return f"{self.year}-{self.month}-{self.day}"
+#
+#
+# d = Data()
+# string_date = d.from_string('23.10.2022')
+# print(string_date.string_to_db())
+# string_date1 = Data.from_string('21.12.2021')
+# print(string_date1.string_to_db())
+
+
+# Classwork 29
+
+# class Account:
+#     rate_usd = 0.013
+#     rate_eur = 0.011
+#     suffix = "RUB"
+#     suffix_usd = "USD"
+#     suffix_eur = "EUR"
+#
+#     def __init__(self, num, surname, percent, value=0):
+#         self.num = num
+#         self.surname = surname
+#         self.percent = percent
+#         self.value = value
+#         print(f"Счёт #{self.num} принадлежащий {self.surname} был открыт.")
+#         print("*" * 50)
+#     def __del__(self):
+#         print("*" * 50)
+#         print(f"Счёт #{self.num} принадлежащий {self.surname} был закрыт.")
+#     @classmethod
+#     def set_usd_rate(cls, rate):
+#         cls.rate_usd = rate
+#
+#     @classmethod
+#     def set_eur_rate(cls, rate):
+#         cls.rate_eur = rate
+#
+#     @staticmethod
+#     def convert(value, rate):
+#         return value * rate
+#
+#     def edit_owner(self, surname):
+#         self.surname = surname
+#
+#     def add_percents(self):
+#         self.value += self.value * self.percent
+#         print("Проценты были успешно начислены!")
+#         self.print_balance()
+#
+#     def withdraw_money(self, val):
+#         if val > self.value:
+#             print(f"К сожалению у вас нет {val} {Account.suffix}")
+#         else:
+#             self.value -= val
+#             print(f"{val} {Account.suffix} было успешно снято!")
+#         self.print_balance()
+#
+#     def add_money(self, val):
+#         self.value += val
+#         print(f"{val} {Account.suffix} было успешно добавлено!")
+#         self.print_balance()
+#
+#     def convert_to_usd(self):
+#         usd_val = Account.convert(self.value, Account.rate_usd)
+#         print(f"Состояние счёта: {usd_val} {Account.suffix_usd}")
+#
+#     def convert_to_eur(self):
+#         eur_val = Account.convert(self.value, Account.rate_eur)
+#         print(f"Состояние счёта: {eur_val} {Account.suffix_eur}")
+#
+#     def print_balance(self):
+#         print(f"Текущий баланс {self.value} {Account.suffix}")
+#
+#     def print_info(self):
+#         print("Информация о счёте")
+#         print("-" * 20)
+#         print(f"#{self.num}")
+#         print(f"Владелец: {self.surname}")
+#         self.print_balance()
+#         print(f"Проценты: {self.percent:.0%}")
+#         print("-" * 20)
+#
+#
+# acc = Account('12345', 'Долгих', 0.03, 1000)
+# acc.print_info()
+# acc.convert_to_usd()
+# acc.convert_to_eur()
+# print()
+# Account.set_usd_rate(2)
+# acc.convert_to_usd()
+# Account.set_eur_rate(3)
+# acc.convert_to_eur()
+# print()
+# acc.edit_owner("Дюма")
+# acc.print_info()
+# print()
+# acc.add_percents()
+# print()
+# acc.withdraw_money(3000)
+# print()
+# acc.withdraw_money(100)
+# print()
+# acc.add_money(5000)
+# print()
+# acc.withdraw_money(3000)
+
+# import re
+#
+#
+# class UserData:
+#     def __init__(self, fio, old, ps, weight):
+#         self.verify_fio(fio)
+#         self.verify_old(old)
+#         self.verify_weight(weight)
+#
+#         self.__fio = fio
+#         self.__old = old
+#         self.__password = ps
+#         self.__weight = weight
+#
+#     @staticmethod
+#     def verify_fio(fio):
+#         if not isinstance(fio, str):
+#             raise TypeError("ФИО должно быть строкой")
+#         f = fio.split()  # ['Волков', 'Игорь', 'Николаевич']
+#         if len(f) != 3:
+#             raise TypeError("Неверный формат ФИО")
+#         # ['В', 'о', 'л', 'к', 'о', 'в', 'И',
+#         # 'г', 'о', 'р', 'ь', 'Н', 'и', 'к', 'о', 'л', 'а', 'е', 'в', 'и', 'ч']
+#         letters = "".join(re.findall('[a-zа-яё-]', fio, flags=re.IGNORECASE))  # ВолковИгорьНиколаевич
+#         for s in f:
+#             if len(s.strip(letters)) != 0:
+#                 raise TypeError("В ФИО можно использовать только буквы и дефис")
+#
+#     @staticmethod
+#     def verify_old(old):
+#         if not isinstance(old, int) or not 14 < old < 120:  # old < 14 or old > 120
+#             raise TypeError("Возраст должен быть числом в диапазоне от 14 до 120 лет")
+#
+#     @staticmethod
+#     def verify_weight(w):
+#         if not isinstance(w, float) or w < 20:
+#             raise TypeError("Вес должен быть вещественным числом от 20 кг и выше")
+#
+#
+# p1 = UserData("Волков Игорь Николаевич", 26, "1234 567890", 80.8)
