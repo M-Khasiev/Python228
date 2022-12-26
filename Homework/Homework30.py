@@ -106,11 +106,11 @@ class Automobile:
     def print_info(self):
         print(str.center(' Данные автомобиля ', 40, "*"))
         print(f"Название модели: {self.__model}")
-        print(f"Год выпуска: {self.year}")
-        print(f"Производитель: {self.manufacturer}")
-        print(f"Мощность двигателя: {self.engine}")
-        print(f"Цвет машины: {self.color}")
-        print(f"Цена: {self.price}")
+        print(f"Год выпуска: {self.__year}")
+        print(f"Производитель: {self.__manufacturer}")
+        print(f"Мощность двигателя: {self.__engine}")
+        print(f"Цвет машины: {self.__color}")
+        print(f"Цена: {self.__price}")
         print("=" * 40)
 
 
