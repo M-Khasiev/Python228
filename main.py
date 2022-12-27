@@ -4630,48 +4630,48 @@ import time as t
 
 # Перегрузка методов
 
-class Point:
-    def __init__(self, x=0, y=0):
-        self.__x = x
-        self.__y = y
-
-    def __str__(self):
-        return f"({self.__x}, {self.__y})"
-
-    def is_int(self):
-        if not isinstance(self.__x, int) or not isinstance(self.__y, int):
-            print("Координаты должны быть целочисленными")
-            return False
-        return True
-
-
-class Prop:
-    def __init__(self, sp: Point, ep: Point, color: str = "red", width: int = 1):
-        self._sp = sp
-        self._ep = ep
-        self._color = color
-        self._width = width
-
-
-class Line(Prop):
-
-    def draw_line(self):
-        print(f"Рисование линии: {self._sp}, {self._ep}, {self._color}, {self._width}")
-
-    def set_coord(self, sp, ep=None):
-        if ep is None:
-            if sp.is_int():
-                self._sp = sp
-        else:
-            if sp.is_int() and ep.is_int():
-                self._sp = sp
-                self._ep = ep
-
-
-line = Line(Point(1, 2), Point(10, 20))
-line.draw_line()
-line.set_coord(Point(20, 40), Point(50, 60))
-line.draw_line()
+# class Point:
+#     def __init__(self, x=0, y=0):
+#         self.__x = x
+#         self.__y = y
+#
+#     def __str__(self):
+#         return f"({self.__x}, {self.__y})"
+#
+#     def is_int(self):
+#         if not isinstance(self.__x, int) or not isinstance(self.__y, int):
+#             print("Координаты должны быть целочисленными")
+#             return False
+#         return True
+#
+#
+# class Prop:
+#     def __init__(self, sp: Point, ep: Point, color: str = "red", width: int = 1):
+#         self._sp = sp
+#         self._ep = ep
+#         self._color = color
+#         self._width = width
+#
+#
+# class Line(Prop):
+#
+#     def draw_line(self):
+#         print(f"Рисование линии: {self._sp}, {self._ep}, {self._color}, {self._width}")
+#
+#     def set_coord(self, sp, ep=None):
+#         if ep is None:
+#             if sp.is_int():
+#                 self._sp = sp
+#         else:
+#             if sp.is_int() and ep.is_int():
+#                 self._sp = sp
+#                 self._ep = ep
+#
+#
+# line = Line(Point(1, 2), Point(10, 20))
+# line.draw_line()
+# line.set_coord(Point(20, 40), Point(50, 60))
+# line.draw_line()
 #
 #
 # # Абстрактные методы
@@ -4709,3 +4709,162 @@ line.draw_line()
 
 # line = Line(Point(1, 2), Point(10, 20))
 # line.draw_line()
+
+
+# Classwork 32
+# from abc import ABC, abstractmethod
+#
+#
+# class Chess(ABC):
+#     def draw(self):
+#         print("Нарисовал шахматную фигуру")
+#
+#     @abstractmethod
+#     def move(self):
+#         print("Родитель")
+#
+#
+# class Queen(Chess):
+#     def move(self):
+#         super().move()
+#         print("Переместил шахматную фигуру")
+#
+#
+# q = Queen()
+# q.draw()
+# q.move()
+
+# from abc import ABC, abstractmethod
+#
+#
+# class Currency(ABC):
+#     def __init__(self, value):
+#         self.value = value
+#
+#     @abstractmethod
+#     def convert_to_rub(self):
+#         pass
+#
+#     @abstractmethod
+#     def print_value(self):
+#         print(self.value, end=" ")
+#
+#
+# class Dollar(Currency):
+#     rate_to_rub = 74.16
+#     suffix = 'USD'
+#
+#     def convert_to_rub(self):
+#         rub = self.value * Dollar.rate_to_rub
+#         return rub
+#
+#     def print_value(self):
+#         super().print_value()
+#         print(Dollar.suffix, end=" ")
+#
+#
+# class EUR(Currency):
+#     rate_to_rub = 90.14
+#     suffix = 'EUR'
+#
+#     def convert_to_rub(self):
+#         rub = self.value * EUR.rate_to_rub
+#         return rub
+#
+#     def print_value(self):
+#         super().print_value()
+#         print(EUR.suffix, end=" ")
+#
+#
+# d = [Dollar(5), Dollar(10), Dollar(50), Dollar(100)]
+# print("*" * 50)
+# for elem in d:
+#     elem.print_value()
+#     print(f'= {elem.convert_to_rub():.2f} RUB')
+#
+# e = [EUR(5), EUR(10), EUR(50), EUR(100)]
+# print("*" * 50)
+# for elem in e:
+#     elem.print_value()
+#     print(f"= {elem.convert_to_rub():.2f} RUB")
+
+
+# from abc import ABC, abstractmethod
+#
+#
+# class Father(ABC):
+#     @abstractmethod
+#     def display1(self):
+#         pass
+#
+#     @abstractmethod
+#     def display2(self):
+#         pass
+#
+#
+# class Child(Father):
+#     def display1(self):
+#         print("Дочерний класс")
+#
+#
+# class GrandChild(Child):
+#     def display2(self):
+#         print("Внучатый класс")
+#
+#
+# g = GrandChild()
+# g.display1()
+# g.display2()
+
+# class MyOuter:
+#     age = 18
+#
+#     def __init__(self, name):
+#         self.name = name
+#
+#     @staticmethod
+#     def outer_class_method():
+#         print("Я - метод внешнего класса")
+#
+#     def outer_obj_method(self):
+#         print("Связующий метод")
+#
+#     class MyInner:
+#         def __init__(self, inner_name, obj):
+#             self.inner_name = inner_name
+#             self.obj = obj
+#
+#         def inner_method(self):
+#             print("Я - метод вложенного класса", MyOuter.age, self.obj.name)
+#             MyOuter.outer_class_method()
+#             self.obj.outer_obj_method()
+#
+#
+# out = MyOuter("внешний")
+# inner = out.MyInner("внутренний", out)
+# print(inner.inner_name)
+# inner.inner_method()
+
+class Color:
+    def __init__(self):
+        self.name = "Green"
+        self.lg = self.LightGreen()
+
+    def show(self):
+        print('Name:', self.name)
+
+    class LightGreen:
+        def __init__(self):
+            self.name = "Light green"
+            self.code = "024avc"
+
+        def display(self):
+            print("Name:", self.name)
+            print("Code:", self.code)
+
+
+outer = Color()
+outer.show()
+
+g = outer.lg
+g.display()
