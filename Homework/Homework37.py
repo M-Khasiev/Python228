@@ -43,7 +43,7 @@ print()
 # Вариант 2 (Динамические свойства)
 
 class PersonData2:
-    def __init__(self, name, surname, age, resides, cars, children, foot_size, married, education):
+    def __init__(self, name, surname, age, resides, cars, children, foot_size, married, education, money):
         self.name = name
         self.surname = surname
         self.age = age
@@ -53,7 +53,7 @@ class PersonData2:
         self.foot_size = foot_size
         self.married = married
         self.education = education
-        self.income = self.annual_income2(100000)
+        self.income = self.annual_income2(money)
 
     @staticmethod
     def annual_income2(summa: int):
@@ -62,7 +62,7 @@ class PersonData2:
 
 p1 = PersonData2('John', 'Wick', 42, 'New York', ['Mercedes-Benz', 'Audi', 'Mustang'], ('Mark', 'Bella', 'Joseph'),
                  43.5, True, {'Stanford University': "Bachelor's degree", 'Harvard University': "Master's degree",
-                              'Time spent on education': {'Stanford': 3, 'Harvard': 1}})
+                              'Time spent on education': {'Stanford': 3, 'Harvard': 1}}, 100000)
 json_string2 = json.dumps(p1.__dict__)
 data2 = json.loads(json_string2)
 print(data2)
