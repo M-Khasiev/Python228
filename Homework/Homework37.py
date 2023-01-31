@@ -53,7 +53,7 @@ class PersonData2:
         self.foot_size = foot_size
         self.married = married
         self.education = education
-        self.income = self.annual_income2(money)
+        self.income = self.annual_income2(100000)
 
     @staticmethod
     def annual_income2(summa: int):
