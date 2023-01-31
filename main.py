@@ -1102,7 +1102,6 @@ from random import *
 
 import time as t
 
-
 # second = t.time()
 # print("Секунды с начала цифровой эпохи:", second)
 # localtime = t.ctime()
@@ -5717,7 +5716,7 @@ import time as t
 #
 # @MyDecorator("test2")
 # def func(a, b):
-#     return print(a, b)
+#     print(a, b)
 #
 #
 # func(2, 5)
@@ -5786,29 +5785,466 @@ import time as t
 # p.name.set("Oleg")
 # print(p.name.get(), p.surname.get())
 
-class ValidateString:
-    def __set_name__(self, owner, name):
-        self.__name = name
+# class ValidateString:
+#     def __set_name__(self, owner, name):
+#         self.__name = name
+#
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.__name]
+#
+#     def __set__(self, instance, value):
+#         if not isinstance(value, str):
+#             raise ValueError(f"{self.__name} должно быть строкой")
+#         instance.__dict__[self.__name] = value
+#
+#
+# class Person:
+#     name = ValidateString()
+#     surname = ValidateString()
+#
+#     def __init__(self, name, surname):
+#         self.name = name
+#         self.surname = surname
+#
+#
+# p = Person("Ivan", "Petrov")
+# # p.surname = 12
+# print(p.name)
+# print(p.surname)
 
-    def __get__(self, instance, owner):
-        return instance.__dict__[self.__name]
 
-    def __set__(self, instance, value):
-        if not isinstance(value, str):
-            raise ValueError(f"{self.__name} должно быть строкой")
-        instance.__dict__[self.__name] = value
+# Classwork 37
+
+# class NonNegative:
+#     def __set_name__(self, owner, name):
+#         self.name = name
+#
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.name]
+#
+#     def __set__(self, instance, value):
+#         if value < 0:
+#             raise ValueError(f"Значение {self.name} должно быть положительным")
+#         instance.__dict__[self.name] = value
+#
+#
+# class Order:
+#     price = NonNegative()
+#     qty = NonNegative()
+#
+#     def __init__(self, name, price, qty):
+#         self.name = name
+#         self.price = price
+#         self.qty = qty
+#
+#     def total(self):
+#         return self.price * self.qty
+#
+#
+# a = Order('apple', 5, 10)
+# print(a.total())
+# a.price = 20
+# a.qty = 10
 
 
-class Person:
-    name = ValidateString()
-    surname = ValidateString()
+# class Integer:
+#     @staticmethod
+#     def verify_coord(coord):
+#         if not isinstance(coord, int):
+#             raise TypeError(f"Координата {coord} должно быть положительным")
+#
+#     def __set_name__(self, owner, name):
+#         self.name = "_" + name
+#
+#     def __get__(self, instance, owner):
+#         return instance.__dict__[self.name]
+#
+#     def __set__(self, instance, value):
+#         self.verify_coord(value)
+#         instance.__dict__[self.name] = value
 
-    def __init__(self, name, surname):
-        self.name = name
-        self.surname = surname
+# class Integer:
+#     @staticmethod
+#     def verify_coord(coord):
+#         if not isinstance(coord, int):
+#             raise TypeError(f"Координата {coord} должно быть положительным")
+#
+#     def __set_name__(self, owner, name):
+#         self.name = "_" + name
+#
+#     def __get__(self, instance, owner):
+#         # return instance.__dict__[self.name]
+#         return getattr(instance, self.name)
+#
+#     def __set__(self, instance, value):
+#         self.verify_coord(value)
+#         # instance.__dict__[self.name] = value
+#         setattr(instance, self.name, value)
+#
+#     def __delete__(self, instance):
+#         # del instance.__dict__[self.name]
+#         delattr(instance, self.name)
 
 
-p = Person("Ivan", "Petrov")
-# p.surname = 12
-print(p.name)
-print(p.surname)
+#
+#
+# class Point3D:
+#     x = Integer()
+#     y = Integer()
+#     z = Integer()
+#
+#     def __init__(self, x, y, z):
+#         self.x = x
+#         self.y = y
+#         self.z = z
+#
+#     def total(self):
+#         return self.price * self.qty
+#
+#
+# p1 = Point3D(1, 2, 3)
+# print(p1.__dict__)
+# print(p1.y)
+
+
+# class Point:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.z = z
+#
+#
+# p1 = Point(5, 10)
+# print(p1.__del__)
+# print(getattr(p1, "x"))
+# print(setattr(p1, "x", 6))
+# p1.x = 7
+# print(p1.x)
+# print(hasattr(p1, "x"))
+# print(hasattr(p1, "z"))
+
+# class Integer:
+#     def __set_name__(self, owner, name):
+#         self.name = "_" + name
+#
+#     def __get__(self, instance, owner):
+#         # return instance.__dict__[self.name]
+#         return getattr(instance, self.name)
+#
+#
+# class Point3D:
+#     x = Integer()
+#     y = Integer()
+#     z = Integer()
+#
+#     def __init__(self, x, y, z):
+#         self.x = x
+#         self.y = y
+#         self.z = z
+#
+#
+# p1 = Point3D(1, 2, 3)
+# print(p1.__dict__)
+# print(p1.y)
+
+
+# Создание модулей
+
+# import geometry.rect
+# import geometry.sq
+# import geometry.trian
+# from geometry import rect, sq, trian
+# from geometry import *
+
+# r1 = rect.Rectangle(1, 2)
+# r2 = rect.Rectangle(3, 4)
+#
+# s1 = sq.Square(10)
+# s2 = sq.Square(20)
+#
+# t1 = trian.Triangle(1, 2, 3)
+# t2 = trian.Triangle(4, 5, 6)
+#
+# shape = [r1, r2, s1, s2, t1, t2]
+#
+# for g in shape:
+#     print(g.get_perimetr())
+
+# import sqlite3
+#
+# db = sqlite3.connect("last.sqlite")
+# c = db.cursor()
+# c = db.execute("""CREATE TABLE articles(
+#     title text,
+#     full_text text,
+#     views integer,
+#     avtor text
+#
+# )""")
+
+# c.execute("INSERT INTO articles Values ('Facebook is cool!', 'Facebook is realy cool', 40, 'Modest')")
+
+# c.execute("SELECT rowid, * FROM articles WHERE views >= 60")
+# items = c.fetchall()
+# print(c.fetchall())
+# print(c.fetchmany(1))
+# print(c.fetchone())
+
+# for i in items:
+#     print(i[1] + "\n" + i[4])
+#
+# db.commit()
+#
+# db.close()
+
+
+# Classwork 38
+
+# from car import electrocar
+#
+#
+# def run():
+#     e_car = electrocar.ElectroCar("Tesla", "T", 2020, 50000)
+#     e_car.show_car()
+#     e_car.description_battery()
+#
+#
+# if __name__ == '__main__':
+#     run()
+
+# Упаковка данных
+
+# Кодирование (сериализация)
+# Декодирование (десериализация)
+
+# 1. marshal
+# 2. pickle
+# 3. json
+
+# dump() - сохраняет данные в файл
+# load() - считывает данные из открытого файла
+
+# dumps() - сохраняет данные в строку (в памяти)
+# loads() - считывает данные из строки (из памяти)
+
+# import pickle
+
+# filename = "basket.txt"
+#
+# shop_list = {
+#     "фрукты": ["яблоки", "манго"],
+#     "овощи": ["морковь"],
+#     "бюджет": 1000
+# }
+
+# with open(filename, "wb") as fh:
+#     pickle.dump(shop_list, fh)
+
+# with open(filename, 'rb') as fh:
+#     shop = pickle.load(fh)
+#
+# print(shop)
+# import pickle
+# class Test:
+#     num = 35
+#     st = "Привет"
+#     lst = [1, 2, 3]
+#     d = {"first": "a", "second": 2}
+#     tpl = (22, 33)
+#
+#     def __str__(self):
+#         return f"Число: {Test.num}\nСтрока: {Test.st}\nСписок: {Test.lst}\nСловарь: {Test.d}\nКортеж: {Test.tpl}"
+#
+#
+# obj = Test()
+#
+# my_obj = pickle.dumps(obj)
+# print(f"Сериализация в строку: \n{my_obj}\n")
+# print(type(my_obj))
+# l_obj = pickle.loads(my_obj)
+# print(f"Десериализация в строку: \n{l_obj}\n")
+# print(type(l_obj))
+# print(l_obj.d)
+# import pickle
+#
+#
+# class Test2:
+#     def __init__(self):
+#         self.a = 35
+#         self.b = "test"
+#         self.c = lambda x: x * x
+#
+#     def __str__(self):
+#         return f"{self.a} {self.b} {self.c(2)}"
+#
+#     def __getstate__(self):
+#         attr = self.__dict__.copy()
+#         del attr['c']
+#         return attr
+#
+#     def __setstate__(self, state):
+#         self.__dict__ = state
+#         self.c = lambda x: x * x
+#
+#
+# item1 = Test2()
+# item2 = pickle.dumps(item1)
+# item3 = pickle.loads(item2)
+# print(item3.__dict__)
+# print(item3)
+# import json
+#
+# data = {
+#     'name': 'Игорь',
+#     'hobbies': ('running', 'sky diving'),
+#     'age': 20,
+#     'children': [
+#         {
+#             'firstName': 'Alice',
+#             'age': 8
+#         },
+#         {
+#             'firstName': 'Bob',
+#             'age': 8
+#         }
+#     ]
+# }
+#
+# # with open("data_file.json", "w") as fw:
+# #     json.dump(data, fw, indent=4)
+# #
+# # with open("data_file.json", "r") as fw:
+# #     data = json.load(fw)
+# #     print(data)
+#
+# json_string = json.dumps(data, ensure_ascii=False)
+# print(json_string)
+# data = json.loads(json_string)
+# print(data)
+
+
+# Classwork 39
+
+# import json
+# from random import choice
+#
+#
+# def get_person():
+#     name = ''
+#     tel = ''
+#
+#     letter = ['a', 'b', 'c', 'd', 'e', 'f', 'g', 'h']
+#     nums = ['1', '2', '3', '4', '5', '6', '7', '8', '9', '10']
+#
+#     while len(name) != 7:
+#         name += choice(letter)
+#
+#     while len(tel) != 10:
+#         tel += choice(nums)
+#
+#     person = {
+#         'name': name,
+#         'tel': tel
+#     }
+#     return person
+#
+#
+# def write_json(person_dict):
+#     try:
+#         data = json.load(open('persons.json'))
+#     except FileNotFoundError:
+#         data = []
+#
+#     data.append(person_dict)
+#     with open('persons.json', 'w') as f:
+#         json.dump(data, f, indent=2)
+#
+#
+#
+# for i in range(5):
+#     write_json(get_person())
+
+# import json
+#
+#
+# class Student:
+#
+#     def __init__(self, name, marks):
+#         self.name = name
+#         self.marks = marks
+#
+#     def __str__(self):
+        #  a = ""
+        # for i in self.marks:
+        #     # a += f"{i}, "
+        #     # a += str(i) + ", "
+        # a = ", ".join(map(str, self.marks))  # self.marks = [5, 4, 3, 4, 5, 3]
+        # return f"Студент: {self.name}: {a}"
+#         return f"Студент: {self.name}: {', '.join(map(str, self.marks))}"
+#
+#     def add_marks(self, mark):
+#         self.marks.append(mark)
+#
+#     def delete_mark(self, index):
+#         self.marks.pop(index)
+#
+#     def edit_mark(self, index, new_mark):
+#         self.marks[index] = new_mark
+#
+#     def average_mark(self):
+#         return round(sum(self.marks) / len(self.marks), 2)
+#
+#
+#
+# class Group:
+#     def __init__(self, students, group):
+#         self.students = students
+#         self.group = group
+#
+#     def __str__(self):
+        # a = ''
+        # for i in self.students:
+        #     a += str(i)
+    #     return f"{a}"
+#         a = '\n'.join(map(str, self.students))
+#         return f"Группа: {self.group}\n{a}"
+#
+#     def add_student(self, student):
+#         self.students.append(student)
+#
+#     def remove_student(self, index):
+#         return self.students.pop(index)
+#
+#     @staticmethod
+#     def change_group(group1, group2, index):
+#         return group2.add_student(group1.remove_student(index))
+#
+#
+# st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
+# print(st1)
+# st1.add_marks(4)
+# print(st1)
+# st1.delete_mark(3)
+# print(st1)
+# st1.edit_mark(2, 4)
+# print(st1)
+# print(st1.average_mark())
+# st2 = Student('Nikalaenka', [2, 3, 5, 4, 2])
+# st3 = Student('Birukov', [3, 5, 3, 2, 5, 4])
+# sts = [st1, st2]
+# my_group = Group(sts, 'ГК Python')
+# print(my_group)
+# print()
+# my_group.add_student(st3)
+# print(my_group)
+# print()
+# my_group.remove_student(1)
+# print(my_group)
+# group22 = [st2]
+# print()
+# my_group2 = Group(group22, "ГК Web")
+# print(my_group2)
+# print()
+# Group.change_group(my_group, my_group2, 0)
+# print(my_group)
+# print()
+# print(my_group2)
