@@ -70,7 +70,7 @@ class Student:
 
     def st_data_recording(self):
         Student.data[self.name] = self.marks
-        with open("data_student.json", "w") as f:
+        with open("data_student.json", "w", encoding='utf-8') as f:
             json.dump(Student.data, f, ensure_ascii=False, indent=2)
 
     @staticmethod
@@ -111,7 +111,7 @@ class Group:
         for i in range(len(self.students)):
             d[self.students[i].name] = self.students[i].marks
         Group.data[self.group] = d
-        with open("data_students_group.json", "w") as f:
+        with open("data_students_group.json", "w", encoding='utf-8') as f:
             json.dump(Group.data, f, ensure_ascii=False, indent=2)
 
     @staticmethod
