@@ -1,0 +1,66 @@
+body{
+    background: whitesmoke;
+}
+
+.uc{
+    display: flex;
+    justify-content: space-around;
+    list-style: none;
+    background: linear-gradient(black, rgb(75, 75, 75) 48%, rgb(75, 75, 75) 52%, rgb(75, 75, 75));
+    padding: 20px;
+    margin-top: 0;
+}
+
+.lc a{
+    text-decoration: none;
+    font-family:Verdana, Geneva, Tahoma, sans-serif;
+    color: rgb(236, 85, 15);
+}
+
+.name_h{
+    text-align: center;
+    font-family:Georgia, 'Times New Roman', Times, serif;
+}
+
+
+.flash{
+    padding: 10px;
+}
+
+.flash.success{
+    border: 1px solid rgb(1, 63, 1);    
+    background: #AEFFC5;
+    font-weight: bold;
+    color:rgb(1, 63, 1)
+}
+.flash.error{
+    border: 1px solid rgb(121, 4, 4);
+    background: pink;
+    font-weight: bold;
+    color: rgb(121, 4, 4);
+}
+
+.button{
+    position: relative;
+  display: inline-block;
+  width: 10em;
+  height: 2.5em;
+  line-height: 2.5em;
+  vertical-align: middle;
+  text-align: center;
+  text-decoration: none;
+  text-shadow: 0 -1px 1px #777;
+  color: #fff;
+  outline: none;
+  border: 2px solid rgb(201, 7, 7);
+  border-radius: 5px;
+  box-shadow: 0 0 0 60px rgba(0,0,0,0) inset, .1em .1em .2em rgb(121, 4, 4);
+  background: linear-gradient(black, rgb(63, 63, 63) 48%, rgb(75, 75, 75) 52%, rgb(75, 75, 75));
+  color: rgb(201, 7, 7);
+}
+
+.button:active{
+    top: .1em;
+  left: .1em;
+  box-shadow: 0 0 0 60px rgba(0,0,0,.05) inset;
+}
