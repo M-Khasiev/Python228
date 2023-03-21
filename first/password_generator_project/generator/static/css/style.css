@@ -1,0 +1,48 @@
+body{
+    background: lightyellow;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.container{
+    width: 400px;
+    margin: 0 auto;
+}
+
+.container h1{
+    text-align: center;
+}
+.container form, .container h2{
+    background: greenyellow;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 6px;
+}
+.description, .description2{
+    text-align: center;
+}
+.description p{
+    background: greenyellow;
+    padding: 5px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin-left: 40%;
+    margin-right: 40%;
+}
+.description p>a, .description2 p>a{
+    text-decoration: none;
+    color: black;
+    display: block;
+}
+.description2 p{
+    background: greenyellow;
+    padding: 10px;
+    box-sizing: border-box;
+    border-radius: 6px;
+    margin-left: 20%;
+    margin-right: 20%;
+}
+.description2 p:hover, .description p:hover{
+    background: chartreuse;
+  }
+.password{
+    text-align: center;
+}
