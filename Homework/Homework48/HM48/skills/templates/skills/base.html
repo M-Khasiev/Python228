@@ -1,0 +1,50 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <link rel="icon" href="{% static 'skills/icons8-portfolio-32.png' %}" type="image/icons8-portfolio-32.png">
+</head>
+<body>
+{% if user.is_authenticated %}
+<div class="menu">
+        <div class="wrap">
+            <div class="logo">
+                <a href="">
+                    <img src="{% static 'skills/plogo.png' %}" alt="">
+                </a>
+            </div>
+            <p class="bld">Пользователь {{ user.username }}</p>
+            <form action="{% url 'logoutuser' %}" method="post">
+                {% csrf_token %}
+                <button class="top">Выйти</button>
+            </form>
+        </div>
+</div>
+{% else %}
+<div class="menu">
+        <div class="wrap">
+            <div class="logo">
+                <a href="{% url 'index' %}">
+                    <img src="{% static 'skills/plogo.png' %}" alt="">
+                </a>
+            </div>
+            <ul>
+                <li><a href="{% url 'index' %}">Главная</a></li>
+                <li><a href="{% url 'project' %}">Мои работы</a></li>
+                <li><a href="{% url 'signupuser' %}">Регистрация</a></li>
+                <li><a href="{% url 'loginuser' %}">Войти</a></li>
+            </ul>
+        </div>
+</div>
+{% endif %}
+<div class="content">
+    <div class="wrap">
+        {% block content %}
+        {% endblock content %}
+    </div>
+</div>
+</body>
+</html>
