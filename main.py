@@ -9,7 +9,7 @@
 # a = b
 # print(id(a))  # id
 # print(id(b))
-import re
+# import re
 # a = b = c = 1
 # print(a, b, c)
 
@@ -6173,14 +6173,15 @@ import time as t
 #         self.marks = marks
 #
 #     def __str__(self):
-        #  a = ""
-        # for i in self.marks:
-        #     # a += f"{i}, "
-        #     # a += str(i) + ", "
-        # a = ", ".join(map(str, self.marks))  # self.marks = [5, 4, 3, 4, 5, 3]
-        # return f"Студент: {self.name}: {a}"
+#         #  a = ""
+#         # for i in self.marks:
+#         #     # a += f"{i}, "
+#         #     # a += str(i) + ", "
+#         # a = ", ".join(map(str, self.marks))  # self.marks = [5, 4, 3, 4, 5, 3]
+#         # return f"Студент: {self.name}: {a}"
 #         return f"Студент: {self.name}: {', '.join(map(str, self.marks))}"
 #
+#     #
 #     def add_marks(self, mark):
 #         self.marks.append(mark)
 #
@@ -6193,6 +6194,21 @@ import time as t
 #     def average_mark(self):
 #         return round(sum(self.marks) / len(self.marks), 2)
 #
+#     @staticmethod
+#     def dump_to_json(stud, filename):
+#         try:
+#             data = json.load(open(filename))
+#         except FileNotFoundError:
+#             data = []
+#
+#         data.append({"name": stud.name, "marks": stud.marks})
+#         with open(filename, "w") as f:
+#             json.dump(data, f, indent=2)
+#
+#     @staticmethod
+#     def load_to_file(filename):
+#         with open(filename, "r") as f:
+#             print(json.load(f))
 #
 #
 # class Group:
@@ -6201,10 +6217,10 @@ import time as t
 #         self.group = group
 #
 #     def __str__(self):
-        # a = ''
-        # for i in self.students:
-        #     a += str(i)
-    #     return f"{a}"
+#         # a = ''
+#         # for i in self.students:
+#         #     a += str(i)
+#         #     return f"{a}"
 #         a = '\n'.join(map(str, self.students))
 #         return f"Группа: {self.group}\n{a}"
 #
@@ -6218,33 +6234,923 @@ import time as t
 #     def change_group(group1, group2, index):
 #         return group2.add_student(group1.remove_student(index))
 #
+#     @staticmethod
+#     def dump_group(file, group):
+#         try:
+#             data = json.load(open(file))
+#         except FileNotFoundError:
+#             data = []
+#
+#         with open(file, 'w') as f:
+#             stud_list = []
+#             for i in group.students:
+#                 stud_list.append([i.name, i.marks])
+#             data.append(stud_list)
+#             json.dump(data, f, indent=2)
+#
+#     @staticmethod
+#     def upload_journal(file):
+#         with open(file, 'r') as f:
+#             print(json.load(f))
+#
 #
 # st1 = Student('Bodnya', [5, 4, 3, 4, 5, 3])
-# print(st1)
-# st1.add_marks(4)
-# print(st1)
-# st1.delete_mark(3)
-# print(st1)
-# st1.edit_mark(2, 4)
-# print(st1)
-# print(st1.average_mark())
+# # Student.dump_to_json(st1, 'student.json')
+# # Student.load_to_file('student.json')
+# # print(st1)
+# # st1.add_marks(4)
+# # print(st1)
+# # st1.delete_mark(3)
+# # print(st1)
+# # st1.edit_mark(2, 4)
+# # print(st1)
+# # print(st1.average_mark())
 # st2 = Student('Nikalaenka', [2, 3, 5, 4, 2])
+# # Student.dump_to_json(st2, 'student.json')
+# # Student.load_to_file('student.json')
 # st3 = Student('Birukov', [3, 5, 3, 2, 5, 4])
 # sts = [st1, st2]
 # my_group = Group(sts, 'ГК Python')
-# print(my_group)
-# print()
-# my_group.add_student(st3)
-# print(my_group)
-# print()
-# my_group.remove_student(1)
-# print(my_group)
-# group22 = [st2]
-# print()
+# # print(my_group)
+# # print()
+# # my_group.add_student(st3)
+# # print(my_group)
+# # print()
+# # my_group.remove_student(1)
+# # print(my_group)
+# group22 = [st3]
+# # print()
 # my_group2 = Group(group22, "ГК Web")
-# print(my_group2)
-# print()
-# Group.change_group(my_group, my_group2, 0)
-# print(my_group)
-# print()
-# print(my_group2)
+# Group.dump_group('group.json', my_group)
+# Group.dump_group('group.json', my_group2)
+# Group.upload_journal('group.json')
+# # print(my_group2)
+# # print()
+# # Group.change_group(my_group, my_group2, 0)
+# # print(my_group)
+# # print()
+# # print(my_group2)
+
+
+# Classwork 40
+
+# import requests
+# import json
+#
+# response = requests.get("https://jsonplaceholder.typicode.com/todos")
+# print(type(response.text))
+# todos = json.loads(response.text)
+#
+# print(todos[:10])
+# print(type(todos))
+#
+# todos_by_user = {}
+#
+# for todo in todos:
+#     if todo['completed']:
+#         try:
+#             todos_by_user[todo['userId']] += 1  # todos_by_user{1: 3}
+#         except KeyError:
+#             todos_by_user[todo['userId']] = 1  # todos_by_user{1: 1}
+#
+# print(todos_by_user)
+# #
+# top_users = sorted(todos_by_user.items(), key=lambda x: x[1], reverse=True)
+# # print(dict(top_users))
+# print(top_users)
+# # #
+# max_complete = top_users[0][1]
+# # print(max_complete)
+# # #
+# users = []
+# for user, num_complete in top_users:
+#     if num_complete < max_complete:
+#         break
+#     users.append(str(user))
+# #
+# print(users)
+#
+#
+# # del users[1]
+# # max_users = " and ".join(users)
+# # s = "s" if len(users) > 1 else ""
+# # print(f"user{s} {max_users} completed {max_complete} TODOs")
+# #
+# #
+# def keep(tod):
+#     is_complete = tod['completed']
+#     has_max_count = str(tod['userId']) in users
+#     return is_complete and has_max_count
+#
+#
+# with open('filtered_data_file.json', 'w') as f:
+#     filtered_todos = list(filter(keep, todos))
+#     json.dump(filtered_todos, f, indent=2)
+#
+# with open('filtered_data_file.json', 'r') as f:
+#     data = json.load(f)
+#     print(data)
+
+
+# Classwork 41
+
+# CSV (Comma Separated Values) - переменные, разделенные запятыми.
+
+# import csv
+
+# with open('data1.csv', 'r', encoding='utf-8') as r_file:
+#     file_reader = csv.reader(r_file, delimiter=";")
+#     print(file_reader)
+# #     count = 0
+#     for row in file_reader:
+#         print(row)
+#         if count == 0:
+#             print(f"Файл содержит столбцы: {','.join(row)}")
+#         else:
+#             print(f"   {row[0]} - {row[1]}. Родился в {row[2]} году.")
+#         count += 1
+#     print(f"Всего в файле {count} строки.")
+
+
+# with open('data2.csv', 'r', encoding='utf-8') as r_file:
+#     field_names = ["Имя", "Профессия", "Год рождения"]
+#     file_reader = csv.DictReader(r_file, delimiter=";", fieldnames=field_names)
+#     count = 0
+#     for row in file_reader:
+#         print(row)
+#         if count == 0:
+#             print(f"Файл содержит столбцы: {','.join(row)}")
+#         else:
+#             print(f"   {row['Имя']} - {row['Профессия']}. Родился в {row['Год рождения']} году.")
+#         count += 1
+#     print(f"Всего в файле {count} строки.")
+
+# import csv
+# with open('student.csv', mode="w") as f:
+#     writer = csv.writer(f, delimiter=";", lineterminator="\r")
+#     writer.writerow(["Имя", "Класс", "Возраст"])
+#     writer.writerow(["Женя", "9", "15"])
+#     writer.writerow(["Саша", "5", "12"])
+#     writer.writerow(["Маша", "11", "18"])
+
+# data = [['hostname', 'vendor', 'model', 'location'],
+#         ['sw1', 'Cisco', '3750', 'London, Best str'],
+#         ['sw2', 'Cisco', '3850', 'Liverpool, Better str'],
+#         ['sw3', 'Cisco', '3650', 'Liverpool, Better str'],
+#         ['sw4', 'Cisco', '3650', 'London, Best str']]
+#
+# with open("data_sw.csv", mode="w") as f:
+#     writer = csv.writer(f, delimiter=";", lineterminator="\r")
+#     # for row in data:
+#     #     writer.writerow(row)
+#     writer.writerows(data)
+#
+# with open("data_sw.csv") as f:
+#     print(f.read())
+
+
+# with open('stud.csv', mode="w") as f:
+#     names = ["Имя", "Возраст"]
+#     file_writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=names)
+#     file_writer.writeheader()
+#     file_writer.writerow({"Имя": "Саша", "Возраст": "6"})
+#     file_writer.writerow({"Имя": "Маша", "Возраст": "15"})
+#     file_writer.writerow({"Имя": "Вова", "Возраст": "14"})
+#
+#
+# data = [{
+#         'hostname': 'sw1',
+#         'location': 'London',
+#         'model': '3750',
+#         'vendor': 'Cisco'
+# }, {
+#         'hostname': 'sw2',
+#         'location': 'Liverpool',
+#         'model': '3850',
+#         'vendor': 'Cisco'
+# }, {
+#         'hostname': 'sw3',
+#         'location': 'Liverpool',
+#         'model': '3650',
+#         'vendor': 'Cisco'
+# }, {
+#         'hostname': 'sw4',
+#         'location': 'London',
+#         'model': '3650',
+#         'vendor': 'Cisco'
+# }]
+#
+# with open('dictwriter.csv', 'w') as f:
+#     writer = csv.DictWriter(f, delimiter=";", lineterminator="\r", fieldnames=list(data[0].keys()))
+#     writer.writeheader()
+#     for d in data:
+#         print(d)
+#         writer.writerow(d)
+
+
+# Парсинг
+
+# from bs4 import BeautifulSoup
+# import re
+#
+#
+# # def get_copywriter(tag):
+# #     whois = tag.find("div", class_="whois").text.strip()
+# #     if "Copywriter" in whois:
+# #         return tag
+# #     return None
+# def get_salary(s):
+#     pattern = r"\d+"
+#     res = re.findall(pattern, s)[0]
+#     # res = re.search(pattern, s).group()
+#     print(res)
+#
+#
+# f = open('index.html', encoding="utf-8").read()
+# soup = BeautifulSoup(f, "html.parser")
+#
+# salary = soup.find_all("div", {"data-set": "salary"})
+# for i in salary:
+#     get_salary(i.text)
+# copywriter = []
+# row = soup.find_all('div', class_="row")
+# print(row)
+# # for i in row:
+# #     cw = get_copywriter(i)
+# #     if cw:
+# #         copywriter.append(cw)
+#
+# print(copywriter)
+# row = soup.find('div', class_="name").text
+# row = soup.find_all('div', class_="name")
+# for r in row:
+#     print(r.text)
+# print(row)
+
+# row = soup.find_all("div", class_="row")[1].find("div", class_="links")
+# print(row)
+# row = soup.find_all("div", {"data-set": "salary"})
+# print(row)
+
+# row = soup.find("div", string="Alena").parent.parent
+# row = soup.find("div", string="Alena").find_parent(class_="row")
+# print(row)
+
+# row = soup.find("div", id="whois3").find_next_sibling()
+# row = soup.find("div", id="whois3").find_previous_sibling()
+# print(row)
+
+
+# Classwork 42
+# import requests
+
+
+# r = requests.get('https://ru.wordpress.org/')
+# print(r.headers)
+# print(r.headers['content-type'])
+# print(r.content)
+# print(r.text)
+
+# import requests
+# from bs4 import BeautifulSoup
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def get_data(html):
+#     soup = BeautifulSoup(html, "lxml")
+#     p1 = soup.find("header", id="masthead").find("p", class_="site-title").text
+#     return p1
+#
+#
+# def main():
+#     url = "https://ru.wordpress.org/"
+#     print(get_data(get_html(url)))
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+
+# import requests
+# from bs4 import BeautifulSoup
+# import re
+# import csv
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def refined(s):
+#     res = re.sub(r"\D+", "", s)
+#     return res
+#
+#
+# def write_csv(data):
+#     with open("plugins.csv", "a") as f:
+#         writer = csv.writer(f, lineterminator='\r', delimiter=";")
+#         writer.writerow((data['name'], data['url'], data['rating']))
+#
+#
+# def get_data(html):
+#     soup = BeautifulSoup(html, "lxml")
+#     p1 = soup.find_all("section", class_="plugin-section")[3]
+#     plugins = p1.find_all("article")
+#
+#     for plugin in plugins:
+#         name = plugin.find("h3").text
+#         url = plugin.find("h3").find("a").get("href")  # ["href"]
+#         rating = plugin.find("span", class_="rating-count").find("a").text
+#         r = refined(rating)
+#         data = {'name': name, "url": url, "rating": r}
+#         write_csv(data)
+#         # print(r)
+#         # print(name)
+#         # print(url)
+#         # print(rating)
+#     # return len(plugins)
+#
+#
+# def main():
+#     url = "https://ru.wordpress.org/plugins/"
+#     get_data(get_html(url))
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+
+# import requests
+# from bs4 import BeautifulSoup
+# import csv
+#
+#
+# def get_html(url):
+#     r = requests.get(url)
+#     return r.text
+#
+#
+# def refine_cy(s):
+#     return s.split()[-1]
+#
+#
+# def refine_snippet(s):
+#     return re.sub("<img[^>]>", "", s)
+#
+#
+# def write_csv(data):
+#     with open("plugins2.csv", "a") as f:
+#         writer = csv.writer(f, lineterminator='\r', delimiter=";")
+#         writer.writerow((data['name'],
+#                          data['url'],
+#                          data['snippet'],
+#                          data['cy']))
+#
+#
+# def get_data(html):
+#     soup = BeautifulSoup(html, "lxml")
+#     elements = soup.find_all("article", class_="plugin-card")
+#     for el in elements:
+#         try:
+#             name = el.find("h3").text
+#         except ValueError:
+#             name = ""
+#
+#         try:
+#             url = el.find("h3").find("a").get("href")
+#         except ValueError:
+#             url = ""
+#
+#         try:
+#             snippet = el.find("div", class_="entry-excerpt").text.strip()
+#             snippet1 = refine_snippet(snippet)
+#         except ValueError:
+#             snippet1 = ""
+#         print(snippet1)
+#
+#         try:
+#             c = el.find("span", class_="tested-with").text.strip()
+#             cy = refine_cy(c)
+#         except ValueError:
+#             cy = ""
+#
+#         data = {
+#             'name': name,
+#             'url': url,
+#             'snippet': snippet1,
+#             'cy': cy
+#         }
+#
+#         write_csv(data)
+#         # print(data)
+#         # print(cy)
+#         # print(snippet)
+#         # print(url)
+#         # print(name)
+#
+#
+# def main():
+#     for i in range(1, 25):
+#         url = f"https://ru.wordpress.org/plugins/browse/blocks/page/{i}/"
+#         get_data(get_html(url))
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+# from parsers import Parsers
+#
+#
+# def main():
+#     pars = Parsers("https://www.ixbt.com/live/index/news/", "news.txt")
+#     pars.run()
+#
+#
+# if __name__ == '__main__':
+#     main()
+
+# MVC
+# M - Model (модель)
+# View (вид или представление)
+# Contoller (контроллер)
+
+
+# Classwork 43
+# SQL (язык структурированных запросов)
+# Столбцы (поля, атрибуты)
+# Строки (записи, кортежи)
+
+# SQLite
+
+
+# import sqlite3 as sq
+
+# con = sq.connect('profile.db')
+# cur = con.cursor()
+#
+# cur.execute("""
+# """)
+#
+# con.close()
+
+# with sq.connect('profile.db') as con:
+#     cur = con.cursor()
+#     # cur.execute("""CREATE TABLE IF NOT EXISTS users(
+#     # id INTEGER PRIMARY KEY AUTOINCREMENT,
+#     # name TEXT NOT NULL,
+#     # summa REAL,
+#     # data BLOB
+#     # )""")
+#     cur.execute("DROP TABLE users")
+
+
+# Classwork 43
+# import sqlite3 as sq
+#
+# with sq.connect('users.db') as con:
+#     cur = con.cursor()
+#     cur.execute("""
+#     DROP TABLE person_table
+#     """)
+
+# cur.execute("""
+#         ALTER TABLE person_table
+#         DROP COLUMN home_address
+#         """)
+
+# cur.execute("""
+#     ALTER TABLE person_table
+#     RENAME COLUMN address TO home_address
+#     """)
+
+# cur.execute("""
+# ALTER TABLE person_table
+# ADD COLUMN address TEXT NOT NULL DEFAULT "street"
+# """)
+# con = sq.connect('profile2.db')
+# cur = con.cursor()
+# cur.execute("""CREATE TABLE IF NOT EXISTS person(
+# id INTEGER PRIMARY KEY AUTOINCREMENT,
+# name TEXT NOT NULL,
+# phone BLOB NOT NULL DEFAULT '+79090000000',
+# age INTEGER CHECK(age>15 AND age<70),
+# email TEXT UNIQUE
+# )""")
+# name = "HI"
+# age = 16
+# email = "jjj"
+# cur.execute(f"""
+# INSERT INTO person (name, age, email)
+# VALUES({name}, {age}, {email})
+# """)
+
+# with sq.connect('DB/DB_2/db_3.db') as con:
+#     cur = con.cursor()
+#     cur.execute("""
+#     SELECT *
+#     FROM T1
+#     ORDER BY FName
+#     LIMIT 2, 5
+#     """)
+#
+#     res = cur.fetchone()
+#     res2 = cur.fetchmany(2)
+#     print(res2)
+# res = cur.fetchall()
+# print(res)
+# for res in cur:
+#     print(res)
+
+
+# print('YES' if 'суббота' in (i := input()) or 'воскресенье' in i else 'NO')
+# print((lambda x1, y1, x2, y2: ((x1 - x2) ** 2 + (y1 - y2) ** 2) ** .5)(*[float(input()) for _ in '||||']))
+# print(*(lambda r:[math.pi*r**2, 2*math.pi*r])(float(input())),sep='\n')
+
+# print(*['AAA' for _ in range(6)], *['BBBB' for _ in range(5)], 'E', *['TTTTT' for _ in range(9)], 'G', sep='\n')
+# (lambda s: [print(i, s) for i in range(10)])(input())
+# [print(i) for i in range(int(input()),int(input())+1) if i%17==0 or i%10==9 or (i%3==0 and i%5==0)]
+
+
+# Classwork 44
+# import sqlite3 as sq
+
+
+# cars = [
+#     ('BMW', 54000),
+#     ('Chevrolet', 56000),
+#     ('Daewoo', 38000),
+#     ('Citroen', 29000),
+#     ('Honda', 33000)
+# ]
+#
+# with sq.connect('cars.db') as con:
+#     cur = con.cursor()
+#     cur.execute("""
+#     CREATE TABLE IF NOT EXISTS cars(
+#         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         model TEXT,
+#         price INTEGER
+#     )
+#     """)
+#     cur.executescript("""
+#     DELETE FROM cars WHERE model LIKE 'B%';
+#     UPDATE cars SET price = price + 100;
+#     """)
+
+# cur.execute("UPDATE cars SET price = :Price WHERE model LIKE 'B%'", {'Price': 0})
+# cur.execute("UPDATE cars SET price = 0 WHERE model LIKE 'B%'")
+
+# cur.executemany("INSERT INTO cars VALUES(NULL, ?, ?)", cars)
+
+# for car in cars:
+#     cur.execute("INSERT INTO cars VALUES(NULL, ?, ?)", car)
+
+# cur.execute("INSERT INTO cars VALUES(1, 'Renault', 20000)")
+# cur.execute("INSERT INTO cars VALUES(2, 'Volvo', 29000)")
+# cur.execute("INSERT INTO cars VALUES(3, 'Mercedes', 57000)")
+# cur.execute("INSERT INTO cars VALUES(4, 'Bentley', 35000)")
+# cur.execute("INSERT INTO cars VALUES(5, 'Audi', 52000)")
+# con.commit()
+# con.close()
+
+
+# con = None
+# try:
+#     con = sq.connect('cars.db')
+#     cur = con.cursor()
+#     cur.executescript("""
+#     CREATE TABLE IF NOT EXISTS cars(
+#         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         model TEXT,
+#         price INTEGER
+#     );
+#     BEGIN;
+#     INSERT INTO cars VALUES(NULL, 'Renault', 20000);
+#     UPDATE cars SET price = price + 100;
+#     """)
+#     con.commit()
+# except sq.Error as e:
+#     if con:
+#         con.rollback()
+#     print(f"Ошибка выполнения запроса {e}")
+# finally:
+#     if con:
+#         con.close()
+
+# with sq.connect('cars.db') as con:
+#     con.row_factory = sq.Row
+#     cur = con.cursor()
+#     cur.execute("""
+#     CREATE TABLE IF NOT EXISTS cars(
+#         car_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         model TEXT,
+#         price INTEGER
+#     )
+#     """)
+#
+#     cur.execute("SELECT model, price FROM cars")
+#
+#     # rows = cur.fetchall()
+#     # rows = cur.fetchone()
+#     # rows = cur.fetchmany(5)
+#     # print(rows)
+#     # for res in cur:
+#     #     print(res)
+#     for res in cur:
+#         print(res['model'], res['price'])
+
+# def read_ava(n):
+#     try:
+#         with open(f"{n}.png", "rb") as f:
+#             return f.read()
+#     except IOError as e:
+#         print(e)
+#         return False
+#
+#
+# with sq.connect('cars.db') as con:
+#     con.row_factory = sq.Row
+#     cur = con.cursor()
+#
+#     cur.executescript("""
+#     CREATE TABLE IF NOT EXISTS users(
+#         user_id INTEGER PRIMARY KEY AUTOINCREMENT,
+#         ava BLOB
+#     );
+#     """)
+#     img = read_ava(1)
+#     if img:
+#         binary = sq.Binary(img)
+#         cur.execute("INSERT INTO users VALUES (?, ?)", (1, binary))
+
+# with sq.connect('cars.db') as con:
+#     cur = con.cursor()
+#
+#     # with open('sql_dump.sql', 'w') as f:
+#     #     for sql in con.iterdump():
+#     #         f.write(sql)
+#
+#     with open('sql_dump.sql', 'r') as f:
+#         sql = f.read()
+#         cur.executescript(sql)
+
+# Classwork 45
+
+# Шаблонизатор (Jinja)
+
+from jinja2 import Template
+
+# msg = tm.render(p=per)
+# name = "Игорь"
+# age = 28
+# per = {'name': 'Игорь', 'age': 28}
+
+# class Person:
+#     def __init__(self, name, age):
+#         self.__name = name
+#         self.__age = age
+#
+#     def get_name(self):
+#         return self.__name
+#
+#     def get_age(self):
+#         return self.__age
+#
+#
+# per = Person("Игорь", 26)
+
+# tm = Template("Мне {{ p.get_age() }} лет. Меня зовут {{ p.get_name().upper() }}.")
+# msg = tm.render(p=per)
+#
+# print(msg)
+
+# cities = [
+#     {'id': 1, 'city': 'Москва'},
+#     {'id': 2, 'city': 'Смоленск'},
+#     {'id': 3, 'city': 'Минск'},
+#     {'id': 4, 'city': 'Ярославль'},
+#     {'id': 5, 'city': 'Уфа'}
+# ]
+# link = """<select name="cities">
+# {% for i in c -%}
+# {% if i.id > 3 -%}
+#     <option value="{{ i['id'] }}">{{ i['city'] }}</option>
+# {% elif i.city == 'Москва' -%}
+#     <option>{{ i['city'] }}</option>
+# {% else -%}
+#     {{i.city}}
+# {% endif -%}
+# {% endfor -%}
+# </select>"""
+#
+# tm = Template(link)
+# msg = tm.render(c=cities)
+#
+# print(msg)
+
+
+# menu = [
+#     {'id': 'Главная', 'href': 'index'},
+#     {'id': 'Новости', 'href': 'news'},
+#     {'id': '0 компании', 'href': 'about'},
+#     {'id': 'Магазин', 'href': 'shop'},
+#     {'id': 'Контакты', 'href': 'contacts'}
+# ]
+# link = """<ul>
+# {% for i in m -%}
+# {% if i.id == 'Главная' -%}
+#     <li<a href="/{{ i.href }}" class="active">{{ i.id }}</a></li>
+# {% else -%}
+#     <li<a href="/{{ i.href }}">{{ i.id }}</a></li>
+# {% endif -%}
+# {% endfor -%}
+# <ul>"""
+#
+# tm = Template(link)
+# msg = tm.render(m=menu)
+#
+# print(msg)
+
+# cars = [
+#     {'model': 'Audi', 'price': 23000},
+#     {'model': 'Skoda', 'price': 17300},
+#     {'model': 'Renault', 'price': 44300},
+#     {'model': 'Wolksvagen', 'price': 21300}
+# ]
+#
+# lst = [1, 2, 3, 4, 5, 6]
+# print(sum(map(lambda x: x['price'], cars)))
+# tp1 = "Суммарная цена автомобилей {{ cs | max(attribute='price').model }}"
+# tp1 = "Суммарная цена автомобилей {{ cs | sum }}"
+# tp1 = "{{ cs | random}}"
+# tp1 = "{{ cs | replace('model', 'brand') }}"
+# tm = Template(tp1)
+# msg = tm.render(cs=cars)
+# print(msg)
+
+# html = """
+# {% macro func(name, value='', type='text', size=20) -%}
+#     <input type='{{ type }}' name='{{ name }}' value='{{ value }}' size='{{ size }}'>
+# {% endmacro -%}
+#
+# <p>{{ func('username', 'Ann') }}</p>
+# <p>{{ func('email') }}</p>
+# <p>{{ func('password', type='password') }}</p>
+# """
+#
+# tm = Template(html)
+# msg = tm.render()
+# print(msg)
+
+
+# html = """
+# {% macro func(name, placeholder='', type='text') -%}
+#     <input type='{{ type }}' name='{{ name }}' placeholder='{{ placeholder }}'>
+# {%- endmacro %}
+#
+# <p>{{ func('firstname', 'Имя') }}</p>
+# <p>{{ func('lastname', 'Фамилия') }}</p>
+# <p>{{ func('address', 'Адрес') }}</p>
+# <p>{{ func('phone', 'Телефон', type='tel') }}</p>
+# <p>{{ func('email', 'Почта', type='email') }}</p>
+# """
+#
+# tm = Template(html)
+# msg = tm.render()
+# print(msg)
+
+# persons = [
+#     {"name": "Алексей", "year": 18, "weight": 78.5},
+#     {"name": "Никита", "year": 28, "weight": 82.3},
+#     {"name": "Виталий", "year": 33, "weight": 94.0}
+# ]
+#
+# html = '''
+# {% macro list_users(list_of_users) %}
+# <ul>
+# {% for i in list_of_users -%}
+#     <li>{{ i.name }} {{ caller(i) }}</li>
+# {% endfor -%}
+# </ul>
+# {% endmacro %}
+#
+# {% call(user) list_users(users) %}
+#     <ul>
+#         <li>{{ user.year }}</li>
+#         <li>{{ user.weight }}</li>
+#     </ul>
+# {% endcall %}
+# '''
+#
+#
+# tm = Template(html)
+# msg = tm.render(users=persons)
+# print(msg)
+
+
+# from jinja2 import Environment, FileSystemLoader
+#
+# persons = [
+#     {"name": "Алексей", "year": 18, "weight": 78.5},
+#     {"name": "Никита", "year": 28, "weight": 82.3},
+#     {"name": "Виталий", "year": 33, "weight": 94.0}
+# ]
+#
+# subs = ['Культура', 'Наука', 'Политика', 'Спорт']
+#
+# file_loader = FileSystemLoader('templates')
+# env = Environment(loader=file_loader)
+#
+# tm = env.get_template('about.html')
+# msg = tm.render(list_table=subs)
+#
+# print(msg)
+
+# Classwork 46
+
+
+# from bs4 import BeautifulSoup as BS
+# import requests
+
+# for i in range(1):
+#     # url = f'https://cyber.sports.ru/cinema/news/?&page={i}'
+#     url = f'https://lenta.ru/rubrics/culture/kino/{i}/'
+#     page = requests.get(url)
+#     html = BS(page.content, 'html.parser')
+#
+#     for el in html.find_all(class_="rubric-page__item")[:-1]:
+#         a = el.h3.text
+#         print(el.time.text)
+#         print(f"{'*' * 30} {el.h3.text} {'*' * 30}")
+#         url_2 = f"https://lenta.ru/{el.a.get('href')}"
+#         page_2 = requests.get(url_2)
+#         html_2 = BS(page_2.content, 'html.parser')
+#
+#         for j in html_2.find_all('div', class_='picture__image-wrap'):
+#             print(j.img.get('src'))
+#
+#         for j in html_2.find_all('div', class_='topic-body__content'):
+#             print(j.text)
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+#         print()
+# for el in html.select(".card-full-news__title"):
+#     print(el)
+# url_2 = f"https://cyber.sports.ru/{el.a.get('href')}"
+# page_2 = requests.get(url)
+# html_2 = BS(page_2.content, 'html.parser')
+#
+#     print(f"https://cyber.sports.ru/{el.a.get('href')}")
+#
+#     # for j in html_2.select(".news-item__content"):
+#     #     print(j)
+#     # print('-' * 20)
+#
+# объявление функции
+# объявление функции
+
+# l = [1, 3, 3, 1]
+# l2 = list()
+# for i in range(len(l) - 1):
+#     l2.append(l[i] + l[i + 1])
+# print([l[0], *l2, l[-1]])
+
+
+# matrix = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9]
+# ]
+# matrix2 = [
+#     [1, 2, 3],
+#     [4, 5, 6],
+#     [7, 8, 9]
+# ]
+# n = len(matrix)
+# l = list()
+# for f in range(2):
+#     for i in range(len(matrix)):
+#         for j in range(len(matrix)):
+#             for k in range(len(matrix)):
+#                 print(matrix[i][k], matrix2[k][j])
+#                 l.append(matrix[i][k] * matrix2[k][j])
+#             matrix[i][j] = sum(l)
+#             l = []
+#     print()
+#
+# [print(*i) for i in matrix]
